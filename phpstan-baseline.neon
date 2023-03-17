@@ -1,0 +1,6 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Call to an undefined method Worksome\\\\Filters\\\\ModelFilter\\:\\:withTrashed\\(\\)\\.$#"
+			count: 1
+			path: src/ModelFilter.php

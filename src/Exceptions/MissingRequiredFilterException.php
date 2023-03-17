@@ -7,7 +7,7 @@ namespace Worksome\Filters\Exceptions;
 use Exception;
 
 /**
- * Exception thrown by FWorksome\Filters\FilterQuery when no required FilterClass property is not provided to it
+ * Exception thrown by `Worksome\Filters\FilterQuery` when a required FilterClass property is not provided to it.
  */
 class MissingRequiredFilterException extends Exception
 {
