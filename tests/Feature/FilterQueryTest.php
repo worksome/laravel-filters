@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Worksome\Filters\Tests\Feature;
 
 use Illuminate\Contracts\Config\Repository;
@@ -10,133 +12,117 @@ use Worksome\Filters\FilterQuery;
 use Worksome\Filters\Tests\Fake\SecondTestModelFilter;
 use Worksome\Filters\Tests\Fake\TestModel;
 use Worksome\Filters\Tests\Fake\TestModelFilter;
-use Worksome\Filters\Tests\TestCase;
 
-class FilterQueryTest extends TestCase
-{
-    /** @test */
-    public function it_filters_an_eloquent_model()
-    {
-        $filtered = (new FilterQuery($this->app->make(Repository::class)))
-            ->model(TestModel::class)
-            ->apply(TestModelFilter::class)
-            ->input([
-                'name' => 'one',
-            ])
-            ->get();
+it('can filter an Eloquent model', function () {
+    $filtered = (new FilterQuery($this->app->make(Repository::class)))
+        ->model(TestModel::class)
+        ->apply(TestModelFilter::class)
+        ->input([
+            'name' => 'one',
+        ])
+        ->get();
 
-        $this->assertCount(1, $filtered);
-        $this->assertEquals(TestModel::where('name', 'one')->first(), $filtered->first());
-    }
+    expect($filtered)
+        ->toHaveCount(1)
+        ->first()->toEqual(TestModel::where('name', 'one')->first());
+});
 
-    /** @test */
-    public function it_can_paginate_the_filter()
-    {
-        $filtered = (new FilterQuery($this->app->make(Repository::class)))
-            ->model(TestModel::class)
-            ->apply(TestModelFilter::class)
-            ->input([
-                'even' => 1,
-            ])
-            ->paginateFilter(2);
-        $this->assertCount(2, $filtered);
-    }
+it('can paginate the filter', function () {
+    $filtered = (new FilterQuery($this->app->make(Repository::class)))
+        ->model(TestModel::class)
+        ->apply(TestModelFilter::class)
+        ->input([
+            'even' => 1,
+        ])
+        ->paginateFilter(2);
 
-    /** @test */
-    public function a_query_builder_can_be_passed_instead_of_model_class()
-    {
-        $query = TestModel::query()->limit(2);
+    expect($filtered)->toHaveCount(2);
+});
 
-        $filtered = (new FilterQuery($this->app->make(Repository::class)))
-            ->query($query)
-            ->apply(TestModelFilter::class)
-            ->input([
-                'even' => 1,
-            ])
-            ->get();
-        $this->assertCount(2, $filtered);
-    }
+it('can pass a query builder instead of a model class', function () {
+    $query = TestModel::query()->limit(2);
 
-    /** @test */
-    public function it_can_simple_paginate_the_filter()
-    {
-        $filtered = (new FilterQuery($this->app->make(Repository::class)))
-            ->model(TestModel::class)
-            ->apply(TestModelFilter::class)
-            ->input([
-                'even' => 1,
-            ])
-            ->simplePaginateFilter(2);
-        $this->assertCount(2, $filtered);
-    }
+    $filtered = (new FilterQuery($this->app->make(Repository::class)))
+        ->query($query)
+        ->apply(TestModelFilter::class)
+        ->input([
+            'even' => 1,
+        ])
+        ->get();
 
-    /** @test */
-    public function it_returns_the_underlying_query_builder()
-    {
-        $query = (new FilterQuery($this->app->make(Repository::class)))
-            ->model(TestModel::class)
-            ->apply(TestModelFilter::class)
-            ->input([
-                'name' => 'one',
-            ])
-            ->getQuery();
-        $this->assertInstanceOf(Builder::class, $query);
-    }
+    expect($filtered)->toHaveCount(2);
+});
 
-    /** @test */
-    public function the_get_method_is_the_same_as_query_builder_get()
-    {
-        $filter = (new FilterQuery($this->app->make(Repository::class)))
-            ->model(TestModel::class)
-            ->apply(TestModelFilter::class)
-            ->input([
-                'name' => 'one',
-            ]);
+it('can simple paginate the filter', function () {
+    $filtered = (new FilterQuery($this->app->make(Repository::class)))
+        ->model(TestModel::class)
+        ->apply(TestModelFilter::class)
+        ->input([
+            'even' => 1,
+        ])
+        ->simplePaginateFilter(2);
 
-        $this->assertEquals($filter->getQuery()->get(), $filter->get());
-    }
+    expect($filtered)->toHaveCount(2);
+});
 
-    /** @test */
-    public function it_throws_a_missing_required_filter_exception_if_no_filter_is_provided()
-    {
-        $this->expectException(MissingRequiredFilterException::class);
-        (new FilterQuery($this->app->make(Repository::class)))
-            ->model(TestModel::class)
-            ->input([
-                'name' => 'one',
-            ])
-            ->get();
-    }
+it('returns the underlying query builder', function () {
+    $query = (new FilterQuery($this->app->make(Repository::class)))
+        ->model(TestModel::class)
+        ->apply(TestModelFilter::class)
+        ->input([
+            'name' => 'one',
+        ])
+        ->getQuery();
 
-    /** @test */
-    public function it_throws_a_missing_required_model_or_query_exception_if_no_model_is_provided()
-    {
-        $this->expectException(MissingRequiredModelOrQueryException::class);
+    expect($query)->toBeInstanceOf(Builder::class);
+});
 
-        (new FilterQuery($this->app->make(Repository::class)))
-            ->apply(TestModelFilter::class)
-            ->input([
-                'name' => 'one',
-            ])
-            ->get();
-    }
+it('has the same response for the get() method and the query builder get() method', function () {
+    $filter = (new FilterQuery($this->app->make(Repository::class)))
+        ->model(TestModel::class)
+        ->apply(TestModelFilter::class)
+        ->input([
+            'name' => 'one',
+        ]);
 
-    /** @test */
-    public function it_resets_the_query_on_filter_class_change()
-    {
-        $query = TestModel::query()->limit(2);
+    expect($filter->getQuery()->get())->toEqual($filter->get());
+});
 
-        $filter = (new FilterQuery($this->app->make(Repository::class)))
-            ->query($query)
-            ->apply(TestModelFilter::class)
-            ->input([
-                'even' => 1,
-            ]);
-        $filter->get();
-        $this->assertEquals($query, $filter->getQuery());
+it('throws a missing required filter exception if not filter is provided', function () {
+    (new FilterQuery($this->app->make(Repository::class)))
+        ->model(TestModel::class)
+        ->input([
+            'name' => 'one',
+        ])
+        ->get();
+})->throws(MissingRequiredFilterException::class);
 
-        $filter->apply(TestModelFilter::class);
-        $this->assertEquals($query, $filter->getQuery());
-        $filter->apply(SecondTestModelFilter::class);
-    }
-}
+it('throws a missing required model or query exception if no model is provided', function () {
+    (new FilterQuery($this->app->make(Repository::class)))
+        ->apply(TestModelFilter::class)
+        ->input([
+            'name' => 'one',
+        ])
+        ->get();
+})->throws(MissingRequiredModelOrQueryException::class);
+
+it('can reset the model on filter class change', function () {
+    $query = TestModel::query()->limit(2);
+
+    $filter = (new FilterQuery($this->app->make(Repository::class)))
+        ->query($query)
+        ->apply(TestModelFilter::class)
+        ->input([
+            'even' => 1,
+        ]);
+
+    $filter->get();
+
+    expect($filter->getQuery())->toEqual($query);
+
+    $filter->apply(TestModelFilter::class);
+
+    expect($filter->getQuery())->toEqual($query);
+
+    $filter->apply(SecondTestModelFilter::class);
+});
