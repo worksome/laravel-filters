@@ -17,10 +17,12 @@
     ],
     "require": {
         "php": "^8.2",
+        "illuminate/contracts": "^9.0 || ^10.0",
         "spatie/laravel-package-tools": "^1.14.1",
-        "illuminate/contracts": "^9.0 || ^10.0"
+        "tucker-eric/eloquentfilter": "^3.2"
     },
     "require-dev": {
+        "ext-pdo": "*",
         "nunomaduro/collision": "^6.4",
         "nunomaduro/larastan": "^2.4.0",
         "orchestra/testbench": "^7.22 || ^8.0",

@@ -2,37 +2,51 @@
 
 namespace Worksome\Filters\Tests;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
+use AllowDynamicProperties;
+use Carbon\Carbon;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Schema\Builder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Collection;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Worksome\Filters\FiltersServiceProvider;
+use Worksome\Filters\Tests\Fake\TestModel;
 
-class TestCase extends Orchestra
+#[AllowDynamicProperties]
+abstract class TestCase extends Orchestra
 {
-    protected function setUp(): void
+    use RefreshDatabase;
+
+    protected function defineDatabaseMigrations()
     {
-        parent::setUp();
+        $schema = $this->app->make(Builder::class);
 
-        Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Worksome\\Filters\\Database\\Factories\\' . class_basename(
-                $modelName
-            ) . 'Factory'
-        );
-    }
+        $schema->create('test_models', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->boolean('even');
+            $table->dateTime('non_sortable');
+            $table->timestamps();
+            $table->softDeletes();
+        });
 
-    protected function getPackageProviders($app)
-    {
-        return [
-            FiltersServiceProvider::class,
-        ];
-    }
-
-    public function getEnvironmentSetUp($app)
-    {
-        config()->set('database.default', 'testing');
-
-        /*
-        $migration = include __DIR__.'/../database/migrations/create_laravel-filters_table.php.stub';
-        $migration->up();
-        */
+        Collection::make([
+            ['name' => 'four', 'even' => 1],
+            ['name' => 'three', 'even' => 0],
+            ['name' => 'six', 'even' => 1],
+            ['name' => 'five', 'even' => 0],
+            ['name' => 'two', 'even' => 1],
+            ['name' => 'seven', 'even' => 0],
+            ['name' => 'nine', 'even' => 0],
+            ['name' => 'eight', 'even' => 1],
+            ['name' => 'ten', 'even' => 1],
+            ['name' => 'one', 'even' => 0],
+            ['name' => 'eleven', 'even' => 1, 'deleted_at' => new Carbon()],
+            ['name' => 'twelve', 'even' => 0, 'deleted_at' => new Carbon()],
+        ])->each(fn (array $data, int $key) => TestModel::query()->create([
+            ... $data,
+            'created_at' => Carbon::now()->addSeconds(10 * $key),
+            'updated_at' => Carbon::now()->addSeconds(15 * $key),
+            'non_sortable' => Carbon::now()->addSeconds(20 * $key),
+        ]));
     }
 }
