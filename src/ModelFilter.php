@@ -1,11 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Worksome\Filters;
 
 use EloquentFilter\ModelFilter as BaseModelFilter;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
-/** This class wraps around the `EloquentFilter\ModelFilter` to add sorting functionality and `IncludeTrash` helper. */
+/**
+ * This class wraps around the `EloquentFilter\ModelFilter` to add sorting functionality and `IncludeTrash` helper.
+ */
 class ModelFilter extends BaseModelFilter
 {
     /**
@@ -44,22 +49,26 @@ class ModelFilter extends BaseModelFilter
             // Check if pre-defined orderBy method exists to sort by
             if (method_exists($this, $method = 'sortBy' . Str::studly($column))) {
                 $this->$method($direction);
+
                 continue;
             }
 
             // Otherwise order by the column in a specific direction, default DESC
             if ($this->isSortable($column)) {
                 $this->orderBy($column, $direction);
+
                 continue;
             }
         }
     }
 
-    public function includeTrashed(bool $value): void
+    public function includeTrashed(bool $includeTrashed = true): void
     {
-        if ($value) {
-            $this->withTrashed();
+        if (! $includeTrashed) {
+            return;
         }
+
+        $this->withTrashed();
     }
 
     protected function prefixWithModelTable(string $field): string

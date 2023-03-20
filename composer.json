@@ -18,6 +18,7 @@
     "require": {
         "php": "^8.2",
         "illuminate/contracts": "^9.0 || ^10.0",
+        "illuminate/database": "^9.0 || ^10.0",
         "spatie/laravel-package-tools": "^1.14.1",
         "tucker-eric/eloquentfilter": "^3.2"
     },
@@ -60,16 +61,6 @@
             "pestphp/pest-plugin": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "worksome/coding-style": true
-        }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Worksome\\Filters\\FiltersServiceProvider"
-            ],
-            "aliases": {
-                "Filters": "Worksome\\Filters\\Facades\\Filters"
-            }
         }
     },
     "minimum-stability": "dev",
