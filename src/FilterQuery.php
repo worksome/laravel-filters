@@ -44,7 +44,7 @@ class FilterQuery
     }
 
     /**
-     * @param  class-string<TModel>  $modelClass
+     * @param class-string<TModel> $modelClass
      *
      * @return self<TModel, TFilter>
      */
@@ -57,7 +57,7 @@ class FilterQuery
     }
 
     /**
-     * @param  class-string<TFilter>  $filterClass
+     * @param class-string<TFilter> $filterClass
      *
      * @return self<TModel, TFilter>
      */
@@ -73,7 +73,7 @@ class FilterQuery
     }
 
     /**
-     * @param  array<string, mixed>  $input
+     * @param array<string, mixed> $input
      *
      * @return self<TModel, TFilter>
      */
@@ -85,7 +85,7 @@ class FilterQuery
     }
 
     /**
-     * @param  Builder<TModel>  $query
+     * @param Builder<TModel> $query
      *
      * @return self<TModel, TFilter>
      */
@@ -119,7 +119,7 @@ class FilterQuery
     }
 
     /**
-     * @param  array<string>  $columns
+     * @param array<string> $columns
      *
      * @return LengthAwarePaginator<TModel>
      *
@@ -140,7 +140,7 @@ class FilterQuery
     }
 
     /**
-     * @param  array<int, string>  $columns
+     * @param array<int, string> $columns
      *
      * @return Paginator<TModel>
      *
