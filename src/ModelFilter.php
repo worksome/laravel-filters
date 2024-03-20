@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Worksome\Filters;
 
 use EloquentFilter\ModelFilter as BaseModelFilter;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
 /**
