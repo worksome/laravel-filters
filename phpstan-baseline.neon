@@ -1,6 +1,85 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Call to an undefined method Worksome\\\\Filters\\\\ModelFilter\\:\\:withTrashed\\(\\)\\.$#"
+			message: '#^PHPDoc tag @method for method Worksome\\Filters\\Filter\:\:apply\(\) return type contains generic class Worksome\\Filters\\FilterQuery but does not specify its types\: TModel, TFilter$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Filter.php
+
+		-
+			message: '#^PHPDoc tag @method for method Worksome\\Filters\\Filter\:\:get\(\) return type contains generic class Illuminate\\Support\\Collection but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Filter.php
+
+		-
+			message: '#^PHPDoc tag @method for method Worksome\\Filters\\Filter\:\:getQuery\(\) return type contains generic class Illuminate\\Database\\Eloquent\\Builder but does not specify its types\: TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Filter.php
+
+		-
+			message: '#^PHPDoc tag @method for method Worksome\\Filters\\Filter\:\:input\(\) return type contains generic class Worksome\\Filters\\FilterQuery but does not specify its types\: TModel, TFilter$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Filter.php
+
+		-
+			message: '#^PHPDoc tag @method for method Worksome\\Filters\\Filter\:\:model\(\) return type contains generic class Worksome\\Filters\\FilterQuery but does not specify its types\: TModel, TFilter$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Filter.php
+
+		-
+			message: '#^PHPDoc tag @method for method Worksome\\Filters\\Filter\:\:paginateFilter\(\) return type contains generic interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator but does not specify its types\: TItem$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Filter.php
+
+		-
+			message: '#^PHPDoc tag @method for method Worksome\\Filters\\Filter\:\:query\(\) parameter \#1 \$query contains generic class Illuminate\\Database\\Eloquent\\Builder but does not specify its types\: TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Filter.php
+
+		-
+			message: '#^PHPDoc tag @method for method Worksome\\Filters\\Filter\:\:query\(\) return type contains generic class Worksome\\Filters\\FilterQuery but does not specify its types\: TModel, TFilter$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Filter.php
+
+		-
+			message: '#^PHPDoc tag @method for method Worksome\\Filters\\Filter\:\:simplePaginateFilter\(\) return type contains generic interface Illuminate\\Contracts\\Pagination\\Paginator but does not specify its types\: TItem$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Filter.php
+
+		-
+			message: '#^Method Worksome\\Filters\\FilterQuery\:\:getQuery\(\) should return Illuminate\\Database\\Eloquent\\Builder\<TModel of Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/FilterQuery.php
+
+		-
+			message: '#^Parameter \#2 \$columns of method Illuminate\\Database\\Eloquent\\Builder\<TModel of Illuminate\\Database\\Eloquent\\Model\>\:\:paginate\(\) expects array\<int, model property of TModel of Illuminate\\Database\\Eloquent\\Model\>, array\<string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/FilterQuery.php
+
+		-
+			message: '#^Property Worksome\\Filters\\FilterQuery\:\:\$query \(Illuminate\\Database\\Eloquent\\Builder\<TModel of Illuminate\\Database\\Eloquent\\Model\>\|null\) is never assigned Illuminate\\Database\\Eloquent\\Builder\<TModel of Illuminate\\Database\\Eloquent\\Model\> so it can be removed from the property type\.$#'
+			identifier: property.unusedType
+			count: 1
+			path: src/FilterQuery.php
+
+		-
+			message: '#^Property Worksome\\Filters\\FilterQuery\<TModel of Illuminate\\Database\\Eloquent\\Model,TFilter of Worksome\\Filters\\ModelFilter\>\:\:\$query \(Illuminate\\Database\\Eloquent\\Builder\<TModel of Illuminate\\Database\\Eloquent\\Model\>\|null\) does not accept Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/FilterQuery.php
+
+		-
+			message: '#^Call to an undefined method Worksome\\Filters\\ModelFilter\:\:withTrashed\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: src/ModelFilter.php

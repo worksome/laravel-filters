@@ -43,7 +43,7 @@ it('does not sort non-sortable columns', function () {
         ->get();
 
     $collection_sorted = $filtered
-        ->sortByDesc(fn(TestModel $model) => $model->non_sortable->timestamp)
+        ->sortByDesc(fn (TestModel $model) => $model->non_sortable->timestamp)
         ->values();
 
     expect($filtered->pluck('name')->toArray())->not->toEqual($collection_sorted->pluck('name')->toArray());
