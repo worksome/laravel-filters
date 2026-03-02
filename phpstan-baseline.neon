@@ -31,7 +31,7 @@ parameters:
 			path: src/Filter.php
 
 		-
-			message: '#^PHPDoc tag @method for method Worksome\\Filters\\Filter\:\:paginateFilter\(\) return type contains generic interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator but does not specify its types\: TItem$#'
+			message: '#^PHPDoc tag @method for method Worksome\\Filters\\Filter\:\:paginateFilter\(\) return type contains generic interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator but does not specify its types\: TKey, TValue$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/Filter.php
@@ -49,10 +49,16 @@ parameters:
 			path: src/Filter.php
 
 		-
-			message: '#^PHPDoc tag @method for method Worksome\\Filters\\Filter\:\:simplePaginateFilter\(\) return type contains generic interface Illuminate\\Contracts\\Pagination\\Paginator but does not specify its types\: TItem$#'
+			message: '#^PHPDoc tag @method for method Worksome\\Filters\\Filter\:\:simplePaginateFilter\(\) return type contains generic interface Illuminate\\Contracts\\Pagination\\Paginator but does not specify its types\: TKey, TValue$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/Filter.php
+
+		-
+			message: '#^Method Worksome\\Filters\\FilterQuery\:\:get\(\) should return Illuminate\\Database\\Eloquent\\Collection\<int, TModel of Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Collection\<int, Illuminate\\Database\\Eloquent\\Model\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/FilterQuery.php
 
 		-
 			message: '#^Method Worksome\\Filters\\FilterQuery\:\:getQuery\(\) should return Illuminate\\Database\\Eloquent\\Builder\<TModel of Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\.$#'
@@ -61,7 +67,7 @@ parameters:
 			path: src/FilterQuery.php
 
 		-
-			message: '#^Parameter \#2 \$columns of method Illuminate\\Database\\Eloquent\\Builder\<TModel of Illuminate\\Database\\Eloquent\\Model\>\:\:paginate\(\) expects array\<int, model property of TModel of Illuminate\\Database\\Eloquent\\Model\>, array\<string\> given\.$#'
+			message: '#^Parameter \#2 \$columns of method Illuminate\\Database\\Eloquent\\Builder\<TModel of Illuminate\\Database\\Eloquent\\Model\>\:\:paginate\(\) expects array\<int, ''\*''\|model property of TModel of Illuminate\\Database\\Eloquent\\Model\>, array\<string\> given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/FilterQuery.php
