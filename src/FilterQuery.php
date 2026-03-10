@@ -121,7 +121,7 @@ class FilterQuery
     /**
      * @param array<string> $columns
      *
-     * @return LengthAwarePaginator<TModel>
+     * @return LengthAwarePaginator<array-key, TModel>
      *
      * @throws MissingRequiredFilterException|MissingRequiredModelOrQueryException
      */
@@ -142,7 +142,7 @@ class FilterQuery
     /**
      * @param array<int, string> $columns
      *
-     * @return Paginator<TModel>
+     * @return Paginator<array-key, TModel>
      *
      * @throws MissingRequiredFilterException|MissingRequiredModelOrQueryException
      */
