@@ -5,6 +5,7 @@ on:
     paths:
       - '**.php'
       - 'phpstan.neon.dist'
+      - 'phpstan-baseline.neon'
       - '.github/workflows/static.yml'
   pull_request:
     branches: [main]
