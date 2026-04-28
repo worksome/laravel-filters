@@ -61,7 +61,7 @@ parameters:
 			path: src/FilterQuery.php
 
 		-
-			message: '#^Method Worksome\\Filters\\FilterQuery\:\:getQuery\(\) should return Illuminate\\Database\\Eloquent\\Builder\<TModel of Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\.$#'
+			message: '#^Method Worksome\\Filters\\FilterQuery\:\:getQuery\(\) should return Illuminate\\Database\\Eloquent\\Builder\<TModel of Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\|Illuminate\\Database\\Eloquent\\Builder\<TModel of Illuminate\\Database\\Eloquent\\Model\>\.$#'
 			identifier: return.type
 			count: 1
 			path: src/FilterQuery.php
@@ -69,12 +69,6 @@ parameters:
 		-
 			message: '#^Parameter \#2 \$columns of method Illuminate\\Database\\Eloquent\\Builder\<TModel of Illuminate\\Database\\Eloquent\\Model\>\:\:paginate\(\) expects array\<int, ''\*''\|model property of TModel of Illuminate\\Database\\Eloquent\\Model\>, array\<string\> given\.$#'
 			identifier: argument.type
-			count: 1
-			path: src/FilterQuery.php
-
-		-
-			message: '#^Property Worksome\\Filters\\FilterQuery\:\:\$query \(Illuminate\\Database\\Eloquent\\Builder\<TModel of Illuminate\\Database\\Eloquent\\Model\>\|null\) is never assigned Illuminate\\Database\\Eloquent\\Builder\<TModel of Illuminate\\Database\\Eloquent\\Model\> so it can be removed from the property type\.$#'
-			identifier: property.unusedType
 			count: 1
 			path: src/FilterQuery.php
 
