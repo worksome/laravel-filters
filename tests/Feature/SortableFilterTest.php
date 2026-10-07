@@ -21,6 +21,18 @@ it('can handle default sorting', function () {
     expect($filtered->first()->created_at->timestamp)->toBeGreaterThan($filtered->get(2)->created_at->timestamp);
 });
 
+it('defaults to descending order for an unknown sort direction', function () {
+    $filtered = (new FilterQuery($this->app->make(Repository::class)))
+        ->model(TestModel::class)
+        ->apply(TestModelFilter::class)
+        ->input([
+            'sortBy' => ['created_at' => 'invalid'],
+        ])
+        ->get();
+
+    expect($filtered->first()->created_at->timestamp)->toBeGreaterThan($filtered->get(2)->created_at->timestamp);
+});
+
 it('can sort using a dedicated sort method', function () {
     $filtered = (new FilterQuery($this->app->make(Repository::class)))
         ->model(TestModel::class)

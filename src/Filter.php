@@ -7,13 +7,14 @@ namespace Worksome\Filters;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static FilterQuery                             model(string $modelClass)
- * @method static FilterQuery                             apply(string $filterClass)
+ * @method static FilterQuery<TModel, ModelFilter>        model<TModel of Model>(class-string<TModel> $modelClass)
+ * @method static FilterQuery<Model, TFilter>             apply<TFilter of ModelFilter>(class-string<TFilter> $filterClass)
  * @method static FilterQuery                             input(array $input = [])
- * @method static FilterQuery                             query(Builder $query)
+ * @method static FilterQuery<TModel, ModelFilter>        query<TModel of Model>(Builder<TModel> $query)
  * @method static Builder                                 getQuery()
  * @method static \Illuminate\Support\Collection|static[] get()
  * @method static LengthAwarePaginator                    paginateFilter($perPage = null, $columns = ['*'], $pageName = 'page', $page = null)
