@@ -54,7 +54,7 @@ class ModelFilter extends BaseModelFilter
 
             // Otherwise order by the column in a specific direction, default DESC
             if ($this->isSortable($column)) {
-                $this->orderBy($column, $direction);
+                $this->orderBy($column, strtolower($direction) === 'asc' ? 'asc' : 'desc');
 
                 continue;
             }

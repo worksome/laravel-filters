@@ -44,22 +44,31 @@ class FilterQuery
     }
 
     /**
-     * @param class-string<TModel> $modelClass
+     * @template TNewModel of Model
      *
-     * @return self<TModel, TFilter>
+     * @param class-string<TNewModel> $modelClass
+     *
+     * @return self<TNewModel, TFilter>
+     *
+     * @phpstan-self-out self<TNewModel, TFilter>
      */
     public function model(string $modelClass): self
     {
-        $this->modelClass = $modelClass;
+        // The instance is re-typed via @phpstan-self-out, which PHPStan can't model inside the method.
+        $this->modelClass = $modelClass; // @phpstan-ignore assign.propertyType
         $this->resetQuery();
 
         return $this;
     }
 
     /**
-     * @param class-string<TFilter> $filterClass
+     * @template TNewFilter of ModelFilter
      *
-     * @return self<TModel, TFilter>
+     * @param class-string<TNewFilter> $filterClass
+     *
+     * @return self<TModel, TNewFilter>
+     *
+     * @phpstan-self-out self<TModel, TNewFilter>
      */
     public function apply(string $filterClass): self
     {
@@ -67,7 +76,8 @@ class FilterQuery
             $this->resetQuery();
         }
 
-        $this->filterClass = $filterClass;
+        // The instance is re-typed via @phpstan-self-out, which PHPStan can't model inside the method.
+        $this->filterClass = $filterClass; // @phpstan-ignore assign.propertyType
 
         return $this;
     }
@@ -85,13 +95,18 @@ class FilterQuery
     }
 
     /**
-     * @param Builder<TModel> $query
+     * @template TNewModel of Model
      *
-     * @return self<TModel, TFilter>
+     * @param Builder<TNewModel> $query
+     *
+     * @return self<TNewModel, TFilter>
+     *
+     * @phpstan-self-out self<TNewModel, TFilter>
      */
     public function query(Builder $query): self
     {
-        $this->query = $query;
+        // The instance is re-typed via @phpstan-self-out, which PHPStan can't model inside the method.
+        $this->query = $query; // @phpstan-ignore assign.propertyType
 
         return $this;
     }
